@@ -6,7 +6,7 @@
 #include "velocity.hpp"
 #include "boundary.hpp"
 
-void set_boundary(std::vector<Velocity>& V, Pressure& P)
+void set_boundary(std::vector<Velocity>& V, Pressure& P, Temperature& T)
 {
     int filx, colx, filp, colp, i, j;
     filx = V[0].get_V().size();
@@ -41,12 +41,16 @@ void set_boundary(std::vector<Velocity>& V, Pressure& P)
     for (j = 0; j < colp; j++)
     {
         P.set_P(0, j, P.get_P(1 , j));
-        P.set_P(filp-1,j,P.get_P(filp - 2,j));
+        P.set_P(filp - 1, j, P.get_P(filp - 2, j));
+        T.set_T(0, j, T.get_T(1, j));
+        T.set_T(filp - 1, j, T.get_T(filp - 2, j));
     }
     for (i = 0; i < filp; i++)
     {
-        P.set_P(i,0,P.get_P(i,1));
-        P.set_P(i,colp-1,P.get_P(i,colp - 2));
+        P.set_P(i, 0, P.get_P(i, 1));
+        P.set_P(i, colp - 1, P.get_P(i, colp - 2));
+        T.set_T(i, 0, 1);
+        T.set_T(i, colp - 1, 0);
     }
 }
 

@@ -39,7 +39,7 @@ int main()
     Rpu = get_Ru(V, mesh, Re);
     Rpv = get_Rv(V, mesh, Re);
 
-    set_boundary(V, P);
+    set_boundary(V, P, T);
     V[0].set_Vp(mesh, V[0]); V[1].set_Vp(mesh, V[1]);
     V[0].set_Vpc(mesh, V[0], V); V[1].set_Vpc(mesh, V[1], V);
     deltatc = get_deltatc(V, mesh);

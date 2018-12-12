@@ -209,3 +209,15 @@ Temperature::Temperature(const int& row, const int& col)
         }
     }
 }
+double Temperature::get_T(const int& i, const int& j)
+{
+    return T[i][j];
+}
+void Temperature::set_T(const int& i, const int& j, const double t)
+{
+    T[i][j] = t;
+}
+std::vector<std::vector<double>> Temperature::get_T()
+{
+    return T;
+}
