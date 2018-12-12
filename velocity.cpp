@@ -198,3 +198,14 @@ std::vector<std::vector<double>> Pressure::get_P()
 {
     return P;
 }
+Temperature::Temperature(const int& row, const int& col)
+{
+    T.resize(row,std::vector<double>(col));
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < row; j++)
+        {
+            T[i][j] = 298;
+        }
+    }
+}

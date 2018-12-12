@@ -32,6 +32,16 @@ class Pressure{
         double get_P(const int& i, const int& j);
         void set_P(const int&i, const int& j, const double p);
 };
+class Temperature{
+    private:
+        std::vector<std::vector<double>> T;
+    public:
+        Temperature(const int& row, const int& col);
+        std::vector<std::vector<double>> get_T();
+        double get_T(const int& i, const int& j);
+        void set_T(const int& i, const int& j, const double p);
+
+};
 
 std::vector<std::vector<double>> vel_module(std::vector<Velocity>& Vv);
 #endif
