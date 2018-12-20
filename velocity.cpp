@@ -225,8 +225,17 @@ std::vector<std::vector<double>> Temperature::get_T()
 void Temperature::set_Tn(positions& mesh, Velocity&V, Temperature& T)
 {
     int Nx, Ny;
+    double v;
     Nx = mesh.get_Xp().size();
     Ny = mesh.get_Yp().size();
-    Tn.resize(Ny - 2, std::vector<double>(Nx - 2));
+    Tn.resize(Ny, std::vector<double>(Nx));
+    for (int i = 1; i < Ny - 2; i++)
+    {
+        for(int j = 1; j < Nx - 2; j++)
+        {
+            v = V[1].get_V(i, j)
+            if fafsafds
+        }
+    }
 
 }
