@@ -35,6 +35,7 @@ class Pressure{
 class Temperature{
     private:
         std::vector<std::vector<double>> T;
+        std::vector<std::vector<double>> Tn;
     public:
         Temperature(const int& row, const int& col);
         std::vector<std::vector<double>> get_T();
