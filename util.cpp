@@ -166,7 +166,7 @@ std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mes
                     + (V[0].get_V(i + 2, j) - V[0].get_V(i + 1, j)) / (mesh.get_Dypu()[i + 1] + mesh.get_Dypd()[i + 2]) * An
                     - (V[0].get_V(i + 1, j) - V[0].get_V(i, j)) / (mesh.get_Dypu()[i] + mesh.get_Dypd()[i + 1]) * As;
             
-            R[i][j] = (-aux1 + aux2 * Pr ) / Vol; aaaa
+            R[i][j] = (-aux1 + aux2 * Pr ) / Vol;
         }
     }
     return R;   
