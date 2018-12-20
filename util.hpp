@@ -21,7 +21,7 @@ double get_deltatd(const double& Re, positions& mesh);
 std::vector<std::vector<double>> substract(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B);
 std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mesh, const double& Pr);
 
-std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mesh, const double& Re);
+std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mesh, const double& Pr, const double& Ray);
 std::vector<std::vector<double>> get_up(std::vector<Velocity>& V, std::vector<std::vector<double>>& Rnu, std::vector<std::vector<double>>& Rpu, const double& deltat);
 std::vector<std::vector<double>> get_vp(std::vector<Velocity>& V, std::vector<std::vector<double>>& Rnv, std::vector<std::vector<double>>& Rpv, const double& deltat);
 #endif

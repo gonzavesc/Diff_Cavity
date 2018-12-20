@@ -173,7 +173,7 @@ std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mes
 }
 
 
-std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mesh, const double& Re)
+std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mesh, const double& Pr, const double& Ray)
 {
     std::vector<std::vector<double>> R;
     double Vol, Ue, Uw, Vn, Vs, Ae, Aw, An, As;
@@ -202,7 +202,7 @@ std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mes
                     - (V[1].get_V(i, j + 1) - V[1].get_V(i, j)) / (mesh.get_Dxpr()[j] + mesh.get_Dxpl()[j + 1]) * Aw
                     + (V[1].get_V(i + 1, j + 1) - V[1].get_V(i, j + 1)) / (mesh.get_Dyvu()[i] + mesh.get_Dyvd()[i + 1]) * An
                     - (V[1].get_V(i, j + 1) - V[1].get_V(i - 1, j + 1)) / (mesh.get_Dyvu()[i - 1] + mesh.get_Dyvd()[i]) * As;
-            R[i][j] = (-aux1 + aux2 / Re ) / Vol;
+            R[i][j] = (-aux1 + aux2 * Pr ) / Vol;
             
         }
     }
