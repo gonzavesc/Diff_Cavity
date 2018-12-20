@@ -16,11 +16,12 @@ int main()
     std::vector<double> v;    
     std::vector <std::vector<double>> Rpu, Rnu, Rpv, Rnv, up, vp, Vm, C;
     std::vector<int> pos;
-    double Re,deltatc, deltatd, deltat, runtime, total_time(0),M(0), MM(0),diff;
+    double Pr, Ray, deltatc, deltatd, deltat, runtime, total_time(0),M(0), MM(0),diff;
     int n(0);
     double k(0.01);
     v = readfiledat();
-    Re = v[2];
+    Pr = v[2];
+    Ray = V[5];
     runtime = v[4];
     Poisson poiss(v[3]);
     positions mesh(v[0], v[1]);
