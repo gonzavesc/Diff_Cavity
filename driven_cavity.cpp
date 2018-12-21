@@ -38,7 +38,7 @@ int main()
     V[0].set_Vp(mesh, V[0]);  V[1].set_Vp(mesh, V[1]);
     V[0].set_Vpc(mesh, V[0],V);  V[1].set_Vpc(mesh, V[1], V);
     Rpu = get_Ru(V, mesh, Pr);
-    Rpv = get_Rv(V, mesh, Pr, Ray);
+    Rpv = get_Rv(V, mesh, T, Pr, Ray);
 
     set_boundary(V, P, T);
     V[0].set_Vp(mesh, V[0]); V[1].set_Vp(mesh, V[1]);
@@ -48,7 +48,7 @@ int main()
     //std::cout << "deltatd= " << deltatd << " deltatc= " << deltatc << std::endl;
     deltat = std::min(deltatd,deltatc);
     Rnu = get_Ru(V, mesh, Pr);
-    Rnv = get_Rv(V, mesh, Pr, Ray);
+    Rnv = get_Rv(V, mesh, T, Pr, Ray);
     C = substract(Rnu, Rpu);
     diff = get_max(C);
     pos = get_maxpos(C);
@@ -83,7 +83,7 @@ int main()
         deltatd = get_deltatd(Re, mesh);
         deltat = std::min(deltatd,deltatc);
         Rnu = get_Ru(V, mesh, Pr);
-        Rnv = get_Rv(V, mesh, Pr, Ray);
+        Rnv = get_Rv(V, mesh, T, Pr, Ray);
         C = substract(Rnu, Rpu);
         diff = get_max(C);
         pos = get_maxpos(C);
