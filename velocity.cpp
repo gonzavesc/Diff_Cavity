@@ -236,11 +236,11 @@ void Temperature::set_Tn(positions& mesh, std::vector<Velocity>& V, Temperature&
             v = V[1].get_V(i, j) + V[1].get_V(i + 1,j);
             if (v > 0)
             {
-                Tn[i][j] = T[i][j];
+                Tn[i][j] = T.get_T(i, j);
             }
             else
             {
-                Tn[i][j] = T[i + 1][j];
+                Tn[i][j] = T.get_T(i + 1, j);
             }
         }
     }
