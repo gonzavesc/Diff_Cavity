@@ -233,8 +233,15 @@ void Temperature::set_Tn(positions& mesh, Velocity&V, Temperature& T)
     {
         for(int j = 1; j < Nx - 2; j++)
         {
-            v = V[1].get_V(i, j)
-            if fafsafds
+            v = V[1].get_V(i, j) + V[1].get_V(i + 1,j);
+            if (v > 0)
+            {
+                Tn[i][j] = T[i][j];
+            }
+            else
+            {
+                Tn[i][j] = T[i + 1][j];
+            }
         }
     }
 
