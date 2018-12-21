@@ -21,7 +21,7 @@ int main()
     double k(0.01);
     v = readfiledat();
     Pr = v[2];
-    Ray = V[5];
+    Ray = v[5];
     runtime = v[4];
     Poisson poiss(v[3]);
     positions mesh(v[0], v[1]);
@@ -150,8 +150,3 @@ int main()
     std::cout << "End!" << std::endl;
     return 0;
 }
-
-
-
-
-
