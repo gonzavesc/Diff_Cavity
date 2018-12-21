@@ -116,13 +116,13 @@ double get_deltatc(std::vector<Velocity>& Vv, positions& mesh)
     Dtc = 0.35 * N / M;
     return Dtc;
 }
-double get_deltatd(const double& Re, positions& mesh)
+double get_deltatd(const double& Pr, positions& mesh)
 {
     double Dtd, N,NN;
     N = get_min(mesh.get_Dxpr());
     NN = get_min(mesh.get_Dypu());
     N = std::min(NN,N);
-    Dtd = 0.2 * Re * N * N;
+    Dtd = 0.2 * N * N / Pr;
     return Dtd;
 }
 void copy_matrix(std::vector<std::vector<double>>& A, const std::vector<std::vector<double>>& B)
@@ -243,3 +243,8 @@ std::vector<std::vector<double>> get_vp(std::vector<Velocity>& V, std::vector<st
     }
     return vp;
 }
+
+
+
+
+

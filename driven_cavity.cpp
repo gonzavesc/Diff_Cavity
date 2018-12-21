@@ -44,7 +44,7 @@ int main()
     V[0].set_Vp(mesh, V[0]); V[1].set_Vp(mesh, V[1]);
     V[0].set_Vpc(mesh, V[0], V); V[1].set_Vpc(mesh, V[1], V);
     deltatc = get_deltatc(V, mesh);
-    deltatd = get_deltatd(Re, mesh);
+    deltatd = get_deltatd(Pr, mesh);
     //std::cout << "deltatd= " << deltatd << " deltatc= " << deltatc << std::endl;
     deltat = std::min(deltatd,deltatc);
     Rnu = get_Ru(V, mesh, Pr);
@@ -80,7 +80,7 @@ int main()
         V[0].set_Vpc(mesh, V[0], V); V[1].set_Vpc(mesh, V[1], V);
         copy_matrix(Rpu, Rnu); copy_matrix(Rpv, Rnv); 
         deltatc = get_deltatc(V, mesh);
-        deltatd = get_deltatd(Re, mesh);
+        deltatd = get_deltatd(Pr, mesh);
         deltat = std::min(deltatd,deltatc);
         Rnu = get_Ru(V, mesh, Pr);
         Rnv = get_Rv(V, mesh, T, Pr, Ray);
@@ -150,3 +150,8 @@ int main()
     std::cout << "End!" << std::endl;
     return 0;
 }
+
+
+
+
+
