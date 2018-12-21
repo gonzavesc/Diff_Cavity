@@ -173,7 +173,7 @@ std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mes
 }
 
 
-std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mesh, const temperature& T, const double& Pr, const double& Ray)
+std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mesh, const Temperature& T, const double& Pr, const double& Ray)
 {
     std::vector<std::vector<double>> R;
     double Vol, Ue, Uw, Vn, Vs, Ae, Aw, An, As;
@@ -243,8 +243,3 @@ std::vector<std::vector<double>> get_vp(std::vector<Velocity>& V, std::vector<st
     }
     return vp;
 }
-
-
-
-
-
