@@ -246,3 +246,7 @@ void Temperature::set_Tn(positions& mesh, std::vector<Velocity>& V, Temperature&
     }
 
 }
+double Temperature::get_Tn(const int& i, const int& j)
+{
+    return Tn[i][j];
+}
