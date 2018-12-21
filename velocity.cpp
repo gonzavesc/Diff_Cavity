@@ -222,7 +222,7 @@ std::vector<std::vector<double>> Temperature::get_T()
     return T;
 }
 
-void Temperature::set_Tn(positions& mesh, Velocity&V, Temperature& T)
+void Temperature::set_Tn(positions& mesh, std::vector<Velocity>& V, Temperature& T)
 {
     int Nx, Ny;
     double v;
