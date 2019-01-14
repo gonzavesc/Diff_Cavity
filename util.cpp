@@ -250,23 +250,24 @@ Solver::Solver(const double& a)
 }
 double method(const double& P, const int& M)
 {
-    double A;
+    double a;
     if (M==0) //central difference
     {
-        A = 1 - 0.5 * std::abs(P);
+        a = 1 - 0.5 * std::abs(P);
     }
-    return A;
+    return a;
 }
 std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V)
 {
     int i,j;
     double dx, dy;
 
-    std::vector<std::vector<double>> Tnext, ae, aw, an;
+    std::vector<std::vector<double>> Tnext, ae, aw, an, as;
     Tnext.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ae.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     aw.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     an.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
+    as.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     
     for (i = 0; i < mesh.get_m(); i++)
     {
@@ -277,9 +278,11 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vec
             ae[i][j] = (dy) / (dx) * method( V[0].get_V(i, j) * dx, 0) + std::max(0.0, -dx * V[0].get_V(i, j));
             dx = mesh.get_Dxpl(j) + mesh.get_Dxpr(j - 1);
             aw[i][j] = dy / dx * method( V[0].get_V(i, j - 1) * dx, 0) + std::max(0.0, dx * V[0].get_V(i, j - 1));
-            dy = mesh.Dypu(i) + mesh.Dypd(i + 1);
+            dy = mesh.get_Dypu(i) + mesh.get_Dypd(i + 1);
             dx = mesh.get_Dxpr(j) + mesh.get_Dxpl(j);
-            an = dx / dy * method(V[1].get_V(i, j) * dy, 0) + std::max(0.0, -dy * V[1].get_V(i, j));
+            an[i][j] = dx / dy * method(V[1].get_V(i, j) * dy, 0) + std::max(0.0, -dy * V[1].get_V(i, j));
+            dy = mesh.get_Dypd(i) + mesh.get_Dypu(i - 1);
+            as[i][j] = dx / dy * method(V[1].get_V(i - 1, j) * dy, 0) + std::max(0.0 , dy * V[1].get_V(i - 1, j));
         }
     }
     //compute the constants!!
