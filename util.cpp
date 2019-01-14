@@ -257,13 +257,15 @@ double method(const double& P, const int& M)
     }
     return a;
 }
-std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, const double& deltat)
+std::vector<std::vector<double>> Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, const double& deltat)
 {
     int i,j;
-    double dx, dy;
-
+    double dx, dy, Error, aux;
+    Error = err + 1;
     std::vector<std::vector<double>> Tnext, ae, aw, an, as, b, ap0, ap;
     Tnext.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
+    copy_matrix(Tnext, T.get_T());
+    std::cout << Tnext[0][0] << std::endl;
     ae.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     aw.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     an.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
@@ -272,9 +274,9 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vec
     ap0.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ap.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     
-    for (i = 0; i < mesh.get_m(); i++)
+    for (i = 0; i < mesh.get_m() + 2; i++)
     {
-        for (j = 0; j < mesh.get_n(); j++)
+        for (j = 0; j < mesh.get_n() + 2; j++)
         {
             dy = mesh.get_Dypu(i) + mesh.get_Dypd(i);
             dx = mesh.get_Dxpr(j) + mesh.get_Dxpl(j + 1);
@@ -292,10 +294,25 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vec
             ap[i][j] = ae[i][j] + aw[i][j] + as[i][j] + an[i][j] + ap0[i][j];
 
 
-
         }
     }
-    //compute the constants!!
-
+    aux = Tnext[0][0];
+    //Solve GAUSS here!!!!
+    //continue here, Tnext not working
+    while(Error > err)
+    {
+        Error = 0.0;
+        for (i = 1; i < mesh.get_m() + 1; i++)
+        {
+            for (j = 1; j < mesh.get_n() + 1; j++)
+            {
+                aux = Tnext[i][j];
+                Tnext[i][j] = (ae[i][j] * Tnext[i][j + 1] + aw[i][j] * Tnext[i][j - 1] + as[i][j] * Tnext[i - 1][j] + an[i][j] * Tnext[i + 1][j]
+                + b[i][j]) / ap[i][j];
+                Error = std::max(Error, std::abs(aux - Tnext[i][j]));
+            }
+        }
+        set_boundary(Tnext);
+    }
     return Tnext;
 }
