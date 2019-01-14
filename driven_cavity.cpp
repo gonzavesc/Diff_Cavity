@@ -26,22 +26,25 @@ int main()
     Poisson poiss(v[3]);
     Solver solv(v[3]);
     positions mesh(v[0], v[1]);
-    
     Velocity Xvel(mesh.get_m() + 2, mesh.get_n() + 1);
     Velocity Yvel(mesh.get_m() + 1, mesh.get_n() + 2);
     
     Pressure P(mesh.get_m() + 2, mesh.get_n() + 2);
     Temperature T(mesh.get_m() + 2, mesh.get_n() + 2);
+    
     std::vector<Velocity> V;
     
+    
     V.push_back(Xvel); V.push_back(Yvel); 
-
+    T.set_Tn(mesh, V, T);
     V[0].set_Vp(mesh, V[0]);  V[1].set_Vp(mesh, V[1]);
     V[0].set_Vpc(mesh, V[0],V);  V[1].set_Vpc(mesh, V[1], V);
     Rpu = get_Ru(V, mesh, Pr);
+    
     Rpv = get_Rv(V, mesh, T, Pr, Ray);
-
+    
     set_boundary(V, P, T);
+
     V[0].set_Vp(mesh, V[0]); V[1].set_Vp(mesh, V[1]);
     V[0].set_Vpc(mesh, V[0], V); V[1].set_Vpc(mesh, V[1], V);
     deltatc = get_deltatc(V, mesh);
