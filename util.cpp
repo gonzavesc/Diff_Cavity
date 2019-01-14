@@ -262,10 +262,11 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vec
     int i,j;
     double dx, dy;
 
-    std::vector<std::vector<double>> Tnext, ae, aw;
+    std::vector<std::vector<double>> Tnext, ae, aw, an;
     Tnext.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ae.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     aw.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
+    an.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     
     for (i = 0; i < mesh.get_m(); i++)
     {
@@ -273,10 +274,12 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vec
         {
             dy = mesh.get_Dypu(i) + mesh.get_Dypd(i);
             dx = mesh.get_Dxpr(j) + mesh.get_Dxpl(j + 1);
-            ae[i][j] = (dy) / (dx) * method( V[0].get_V(i, j) * dx, 0) + std::max(0.0, -dy * V[0].get_V(i, j));
+            ae[i][j] = (dy) / (dx) * method( V[0].get_V(i, j) * dx, 0) + std::max(0.0, -dx * V[0].get_V(i, j));
             dx = mesh.get_Dxpl(j) + mesh.get_Dxpr(j - 1);
-            aw[i][j] = dy / dx * method( V[0].get_V(i, j - 1) * dx, 0) + std::max(0.0, dy * V[0].get_V(i, j - 1));
-
+            aw[i][j] = dy / dx * method( V[0].get_V(i, j - 1) * dx, 0) + std::max(0.0, dx * V[0].get_V(i, j - 1));
+            dy = mesh.Dypu(i) + mesh.Dypd(i + 1);
+            dx = mesh.get_Dxpr(j) + mesh.get_Dxpl(j);
+            an = dx / dy * method(V[1].get_V(i, j) * dy, 0) + std::max(0.0, -dy * V[1].get_V(i, j));
         }
     }
     //compute the constants!!
