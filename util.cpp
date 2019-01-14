@@ -243,3 +243,8 @@ std::vector<std::vector<double>> get_vp(std::vector<Velocity>& V, std::vector<st
     }
     return vp;
 }
+
+Solver::Solver(const double& a)
+{
+    err = a;
+}

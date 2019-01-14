@@ -24,6 +24,7 @@ int main()
     Ray = v[5];
     runtime = v[4];
     Poisson poiss(v[3]);
+    Solver solv(v[3]);
     positions mesh(v[0], v[1]);
     
     Velocity Xvel(mesh.get_m() + 2, mesh.get_n() + 1);
@@ -59,6 +60,9 @@ int main()
     poiss.set_P(P, up, vp, mesh,  deltat);    
     poiss.set_V(P, mesh, V, up, vp, deltat);
     
+    // The velocity at this point is known, with this information, the temperature field can be computed
+
+
     total_time += deltat;
     std::string save = "";
     std::ostringstream strs;

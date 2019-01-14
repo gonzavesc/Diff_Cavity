@@ -24,4 +24,13 @@ std::vector<std::vector<double>> get_Ru(std::vector<Velocity>& V, positions& mes
 std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mesh, Temperature& T, const double& Pr, const double& Ray);
 std::vector<std::vector<double>> get_up(std::vector<Velocity>& V, std::vector<std::vector<double>>& Rnu, std::vector<std::vector<double>>& Rpu, const double& deltat);
 std::vector<std::vector<double>> get_vp(std::vector<Velocity>& V, std::vector<std::vector<double>>& Rnv, std::vector<std::vector<double>>& Rpv, const double& deltat);
+
+
+class Solver{
+    private:
+        double err;
+    public:
+        Solver(const double& a);
+
+};
 #endif
