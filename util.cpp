@@ -271,7 +271,7 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vec
         {
             dy = mesh.get_Dypu(i) + mesh.get_Dypd(i);
             dx = mesh.get_Dxpl(j) + mesh.get_Dxpr(j + 1);
-            ae[i][j] = (dy) / (dx) * method( V[0].get_V(i, j) * dx  ,0) + std::max(0, dy * V[0].get_V(i, j));
+            ae[i][j] = (dy) / (dx) * method( V[0].get_V(i, j) * dx  ,0) + std::max(0.0, dy * V[0].get_V(i, j));
         }
     }
     //compute the constants!!
