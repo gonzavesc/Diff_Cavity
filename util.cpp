@@ -248,9 +248,29 @@ Solver::Solver(const double& a)
 {
     err = a;
 }
+double method(const double& P, const int& M)
+{
+    double A;
+    if (M==0) //central difference
+    {
+        A = 1 - 0.5 * std::abs(P);
+    }
+    return A;
+}
 std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh)
 {
-    std::vector<std::vector<double>> Tnext;
+    int i,j;
+    std::vector<std::vector<double>> Tnext, ae;
     Tnext.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
+    ae.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
+    for (i = 0; i < mesh.get_m(); i++)
+    {
+        for (j = 0; j < mesh.get_n(); j++)
+        {
+            ae[i][j] = (mesh.get_Dypu(i) + mesh.get_Dypd(i)) / (mesh.get_Dxpl(j) + mesh.get_Dxpr(j + 1)) * method();
+        }
+    }
+    //compute the constants!!
+
     return Tnext;
 }
