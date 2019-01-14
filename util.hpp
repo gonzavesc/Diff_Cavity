@@ -31,7 +31,7 @@ class Solver{
         double err;
     public:
         Solver(const double& a);
-        std::vector<std::vector<double>> get_T(Temperature& T);
+        std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh);
 
 };
 #endif
