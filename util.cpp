@@ -260,6 +260,8 @@ double method(const double& P, const int& M)
 std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V)
 {
     int i,j;
+    double dx, dy;
+
     std::vector<std::vector<double>> Tnext, ae;
     Tnext.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ae.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
@@ -267,7 +269,9 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vec
     {
         for (j = 0; j < mesh.get_n(); j++)
         {
-            ae[i][j] = (mesh.get_Dypu(i) + mesh.get_Dypd(i)) / (mesh.get_Dxpl(j) + mesh.get_Dxpr(j + 1)) * method(0,0);
+            dy = mesh.get_Dypu(i) + mesh.get_Dypd(i);
+            dx = mesh.get_Dxpl(j) + mesh.get_Dxpr(j + 1);
+            ae[i][j] = (dy) / (dx) * method( V[0].get_V(i, j) * dx  ,0) + std::max(0, dy * V[0].get_V(i, j));
         }
     }
     //compute the constants!!
