@@ -257,7 +257,7 @@ double method(const double& P, const int& M)
     }
     return A;
 }
-std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh)
+std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V)
 {
     int i,j;
     std::vector<std::vector<double>> Tnext, ae;
@@ -267,7 +267,7 @@ std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh)
     {
         for (j = 0; j < mesh.get_n(); j++)
         {
-            ae[i][j] = (mesh.get_Dypu(i) + mesh.get_Dypd(i)) / (mesh.get_Dxpl(j) + mesh.get_Dxpr(j + 1)) * method();
+            ae[i][j] = (mesh.get_Dypu(i) + mesh.get_Dypd(i)) / (mesh.get_Dxpl(j) + mesh.get_Dxpr(j + 1)) * method(0,0);
         }
     }
     //compute the constants!!
