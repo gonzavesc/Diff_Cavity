@@ -138,7 +138,22 @@ std::vector <double> positions::get_Dyvd()
 {
     return Dyvd;
 }
-
+double positions::get_Dxpr(const int& a)
+{
+    return Dxpr[a];
+}
+double positions::get_Dxpl(const int& a)
+{
+    return Dxpl[a];
+}
+double positions::get_Dypu(const int& a)
+{
+    return Dypu[a];
+}
+double positions::get_Dypd(const int& a)
+{
+    return Dypd[a];
+}
 int positions::get_m()
 {
     return m;

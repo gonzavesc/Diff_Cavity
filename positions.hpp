@@ -24,6 +24,10 @@ class positions{
         std::vector<double> get_Dxul();
         std::vector<double> get_Dyvu();
         std::vector<double> get_Dyvd();
+        double get_Dxpr(const int& a);
+        double get_Dxpl(const int& a);
+        double get_Dypu(const int& a);
+        double get_Dypd(const int& a);
         int get_m();
         int get_n();
 
