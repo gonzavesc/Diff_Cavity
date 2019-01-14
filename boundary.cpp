@@ -53,7 +53,22 @@ void set_boundary(std::vector<Velocity>& V, Pressure& P, Temperature& T)
         T.set_T(i, colp - 1, 0);
     }
 }
-
+void set_boundary(std::vector<std::vector<double>>& T)
+{
+    int filp, colp, i, j;
+    filp = T.size();
+    colp = T[0].size();
+    for (j = 0; j < colp; j++)
+    {
+        T[0][j] = T[1][j];
+        T[filp - 1][j] = T[filp - 2][j];
+    }
+    for (i = 0; i < filp; i++)
+    {
+        T[i][0] = 1;
+        T[i][colp - 1] = 0;
+    }
+}
 void set_boundary(std::vector<std::vector<double>>& up, std::vector<std::vector<double>>& vp)
 {
     int Nx, Ny, i, j;
