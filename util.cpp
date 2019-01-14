@@ -251,7 +251,6 @@ Solver::Solver(const double& a)
 std::vector<std::vector<double>> get_T(Temperature& T, positions& mesh)
 {
     std::vector<std::vector<double>> Tnext;
-    int m, n;
-    Tnex.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
+    Tnext.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     return Tnext;
 }
