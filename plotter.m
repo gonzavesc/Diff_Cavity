@@ -1,6 +1,8 @@
 close all; clear all;
+Pr = 100;
+Ray = 10;
 Re = 3200;
-fil = dir('*.out'); 
+fil = dir('Results/*.out'); 
 timevx = [];
 k = 1;
 
@@ -32,7 +34,8 @@ for i = 1 : length(fil)
     disp(k/length(fil)*100);
     if (name(1:5) == 'vel_x')
         timevx = [timevx str2double(name (6:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -41,7 +44,8 @@ for i = 1 : length(fil)
         Vx = cat(3,Vx,A);
     elseif (name(1:5) == 'vel_y')
         timevy = [timevy str2double(name (6:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -52,7 +56,8 @@ for i = 1 : length(fil)
 %         contourf(A);
     elseif (name(1:7) == 'vel_Xpc')
         timexpc = [timexpc str2double(name (8:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -61,7 +66,8 @@ for i = 1 : length(fil)
         Vxpc = cat(3,Vxpc,A);
     elseif (name(1:7) == 'vel_Ypc')
         timeypc = [timeypc str2double(name (8:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -70,7 +76,8 @@ for i = 1 : length(fil)
         Vypc = cat(3,Vypc,A);
     elseif (name(1:6) == 'vel_Xp')
         timexp = [timexp str2double(name (7:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -79,7 +86,8 @@ for i = 1 : length(fil)
         Vxp = cat(3,Vxp,A);
     elseif (name(1:6) == 'vel_Yp')
         timeyp = [timeyp str2double(name (7:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -88,7 +96,8 @@ for i = 1 : length(fil)
         Vyp = cat(3,Vxp,A);
     elseif (name(1:6) == 'vel_up')
         timeup = [timeup str2double(name (7:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -97,7 +106,8 @@ for i = 1 : length(fil)
         Vup = cat(3,Vup,A);
     elseif (name(1:6) == 'vel_vp')
         timevp = [timevp str2double(name (7:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
@@ -106,25 +116,32 @@ for i = 1 : length(fil)
         Vvp = cat(3,Vvp,A);
     elseif (name(1:3) == 'Rnv')
         timeRnv = [timeRnv str2double(name (4:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
+        j = find(name(1:end-4) == '-') ;
+        B(j) = 'm';
         c = [B,'=A;'];
         eval(c)
         Rnv = cat(3,Rnv,A);
     elseif (name(1:3) == 'Rnu')
         timeRnu = [timeRnu str2double(name (4:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         j = find(name(1:end-4) == '.') ;
         B = name(1:end-4);
         B(j) = 'p';
+        j = find(name(1:end-4) == '-') ;
+        B(j) = 'm';
         c = [B,'=A;'];
         eval(c)
         Rnu = cat(3,Rnu,A);
     elseif (name(1:8) == 'Pressure') 
         timeP = [timeP str2double(name (9:end-4))];
-        A = importdata(name);
+        names = "Results/" + name;
+        A = importdata(names);
         A(1,1)=A(1,2); A(1,end) = A(1,end-1);
         A(end,1) = A(end,2); A(end,end) = A(end,end-1);
         j = find(name(1:end-4) == '.') ;
