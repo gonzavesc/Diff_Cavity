@@ -273,10 +273,10 @@ void Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, co
     b.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ap0.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ap.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
-    
-    for (i = 0; i < mesh.get_m() + 2; i++)
+    std::cout << "set_t before for" << std::endl;
+    for (i = 1; i < mesh.get_m() + 1; i++)
     {
-        for (j = 0; j < mesh.get_n() + 2; j++)
+        for (j = 1; j < mesh.get_n() + 1; j++)
         {
             dy = mesh.get_Dypu(i) + mesh.get_Dypd(i);
             dx = mesh.get_Dxpr(j) + mesh.get_Dxpl(j + 1);
@@ -296,6 +296,7 @@ void Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, co
 
         }
     }
+    std::cout << "set_t after for" << std::endl;
     aux = Tnext[0][0];
     //Solve GAUSS here!!!!
     //continue here, Tnext not working
