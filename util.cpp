@@ -202,8 +202,7 @@ std::vector<std::vector<double>> get_Rv(std::vector<Velocity>& V, positions& mes
                     - (V[1].get_V(i, j + 1) - V[1].get_V(i, j)) / (mesh.get_Dxpr()[j] + mesh.get_Dxpl()[j + 1]) * Aw
                     + (V[1].get_V(i + 1, j + 1) - V[1].get_V(i, j + 1)) / (mesh.get_Dyvu()[i] + mesh.get_Dyvd()[i + 1]) * An
                     - (V[1].get_V(i, j + 1) - V[1].get_V(i - 1, j + 1)) / (mesh.get_Dyvu()[i - 1] + mesh.get_Dyvd()[i]) * As;
-            R[i][j] = (-aux1 + aux2 * Pr ) / Vol + Ray * Pr * T.get_Tn(i, j + 1); // Not sure about Tn[i][j+1]!!!!!!!!
-            
+            R[i][j] = (-aux1 + aux2 * Pr ) / Vol + Ray * Pr * T.get_Tn(i, j + 1); // Not sure about Tn[i][j+1]!!!!!!!!            
         }
     }
     return R;   
@@ -265,7 +264,6 @@ void Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, co
     std::vector<std::vector<double>> Tnext, ae, aw, an, as, b, ap0, ap;
     Tnext.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     copy_matrix(Tnext, T.get_T());
-    std::cout << Tnext[0][0] << std::endl;
     ae.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     aw.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     an.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
@@ -273,7 +271,6 @@ void Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, co
     b.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ap0.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
     ap.resize(mesh.get_m() + 2, std::vector<double>(mesh.get_n() + 2));
-    std::cout << "set_t before for" << std::endl;
     for (i = 1; i < mesh.get_m() + 1; i++)
     {
         for (j = 1; j < mesh.get_n() + 1; j++)
@@ -296,7 +293,6 @@ void Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, co
 
         }
     }
-    std::cout << "set_t after for" << std::endl;
     aux = Tnext[0][0];
     //Solve GAUSS here!!!!
     //continue here, Tnext not working
@@ -316,9 +312,9 @@ void Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, co
         set_boundary(Tnext);
     }
 
-    for (i = 1; i < mesh.get_m() + 1; i++)
+    for (i = 0; i < mesh.get_m() + 2; i++)
     {
-        for (j = 1; j < mesh.get_n() + 1; j++)
+        for (j = 0; j < mesh.get_n() + 2; j++)
         {
             T.set_T(i, j, Tnext[i][j]);
         }

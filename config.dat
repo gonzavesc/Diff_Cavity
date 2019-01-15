@@ -1,6 +1,6 @@
-Nx 20
-Ny 20
+Nx 10
+Ny 10
 Pr 100
 err 1e-9
-runtime 44
-Rayleigh
+runtime 10
+Rayleigh 10

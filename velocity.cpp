@@ -205,7 +205,7 @@ Temperature::Temperature(const int& row, const int& col)
     {
         for (int j = 0; j < row; j++)
         {
-            T[i][j] = 298;
+            T[i][j] = 0;
         }
     }
 }

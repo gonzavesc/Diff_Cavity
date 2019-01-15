@@ -37,6 +37,7 @@ int main()
     
     V.push_back(Xvel); V.push_back(Yvel); 
     T.set_Tn(mesh, V, T);
+    
     V[0].set_Vp(mesh, V[0]);  V[1].set_Vp(mesh, V[1]);
     V[0].set_Vpc(mesh, V[0],V);  V[1].set_Vpc(mesh, V[1], V);
     Rpu = get_Ru(V, mesh, Pr);
@@ -65,7 +66,7 @@ int main()
     
     // The velocity at this point is known, with this information, the temperature field can be computed
     solv.get_T(T, mesh, V, deltat);
-
+    T.set_Tn(mesh, V, T);
     total_time += deltat;
     std::string save = "";
     std::ostringstream strs;
@@ -74,8 +75,6 @@ int main()
     exportarMatriu(Rnv, save.c_str());
     save = "Results/Rnu" + strs.str() + ".out";
     exportarMatriu(Rnu, save.c_str());
-
-
 
     diff = v[3] + 10;
     //while(total_time < runtime)
@@ -101,6 +100,8 @@ int main()
         poiss.set_P(P, up, vp, mesh,  deltat);  
         //std::cout << ", " << total_time << std::endl;  
         poiss.set_V(P, mesh, V, up, vp, deltat);
+        solv.get_T(T, mesh, V, deltat);
+        T.set_Tn(mesh, V, T);
         total_time += deltat;
         if (total_time > k * runtime)
         {
@@ -119,6 +120,8 @@ int main()
             exportarMatriu(V[0].get_Vp(), save.c_str());
             save = "Results/vel_Yp" + strs.str() + ".out";
             exportarMatriu(V[1].get_Vp(), save.c_str());
+            save = "Results/Temp" + strs.str() + ".out";
+            exportarMatriu(T.get_T(), save.c_str());
 
         }
         M = 0;
