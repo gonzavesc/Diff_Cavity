@@ -17,6 +17,7 @@ Vy=[];
 Rnv = [];
 Rnu = [];
 P=[];
+T = [];
 timevy = [];
 timexp = [];
 timexpc = [];
@@ -26,7 +27,8 @@ timevp = [];
 timeyp = [];
 timeRnv = [];
 timeRnu = [];
-timeP =[];
+timeP = [];
+timeT = [];
 k = 0;
 for i = 1 : length(fil)
     name = fil(i).name;
@@ -150,6 +152,17 @@ for i = 1 : length(fil)
         c = [B,'=A;'];
         eval(c)
         P = cat(3,P,A);
+    elseif (name(1:4) == 'Temp')
+        timeT = [timeT str2double(name (5:end-4))];
+        A = importdata(names);
+        A(1,1)=A(1,2); A(1,end) = A(1,end-1);
+        A(end,1) = A(end,2); A(end,end) = A(end,end-1);
+        j = find(name(1:end-4) == '.') ;
+        B = name(1:end-4);
+        B(j) = 'p';
+        c = [B,'=A;'];
+        eval(c)
+        T = cat(3,T,A);
 %         subplot(1,3,3)
 %         contourf(A);
     end
@@ -224,6 +237,31 @@ for i = 1:length(timevy)
           imwrite(imind,cm,filename,'gif','WriteMode','append'); 
       end 
 end
+
+[timeT I] = sort(timeT);
+filename = ['Results/Temp' num2str(fil) '_' num2str(col) '_Re' num2str(Re) '.gif'];
+filenamef = ['Results/Temp' num2str(fil) '_' num2str(col) '_Re' num2str(Re)];
+close all;
+h4 = figure(4);
+figure(4)
+for i = 1:length(timevy)    
+    contourf(T(:,:,I(i)), 'Showtext', 'on')
+    title(['Time = ' num2str(timeT(i))])
+    colorbar;
+    drawnow
+    saveas(h4, [filenamef '_' num2str(i)], 'png');
+    frame = getframe(h4);
+    im = frame2im(frame); 
+    [imind,cm] = rgb2ind(im,256); 
+    if i == 1 
+          imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+      else 
+          imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+      end 
+end
+
+
+
 close all;
 %%
 [fil col] = size(Vxp(:,:,1));
