@@ -257,7 +257,7 @@ double method(const double& P, const int& M)
     }
     return a;
 }
-std::vector<std::vector<double>> Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, const double& deltat)
+void Solver::get_T(Temperature& T, positions& mesh, std::vector<Velocity>& V, const double& deltat)
 {
     int i,j;
     double dx, dy, Error, aux;
@@ -314,5 +314,12 @@ std::vector<std::vector<double>> Solver::get_T(Temperature& T, positions& mesh, 
         }
         set_boundary(Tnext);
     }
-    return Tnext;
+
+    for (i = 1; i < mesh.get_m() + 1; i++)
+    {
+        for (j = 1; j < mesh.get_n() + 1; j++)
+        {
+            T.set_T(i, j, Tnext[i][j]);
+        }
+    }
 }

@@ -64,7 +64,7 @@ int main()
     poiss.set_V(P, mesh, V, up, vp, deltat);
     
     // The velocity at this point is known, with this information, the temperature field can be computed
-
+    solv.get_T(T, mesh, V, deltat);
 
     total_time += deltat;
     std::string save = "";
