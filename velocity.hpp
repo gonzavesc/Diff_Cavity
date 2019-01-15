@@ -41,8 +41,9 @@ class Temperature{
         std::vector<std::vector<double>> get_T();
         double get_T(const int& i, const int& j);
         void set_T(const int& i, const int& j, const double p);
+        void set_T(std::vector<std::vector<double>>& Temp);
         void set_Tn(positions& mesh, std::vector<Velocity>& V, Temperature& T);
-        double get_Tn(const int& i, const int& i);
+        double get_Tn(const int& i, const int& j);
 
 };
 
