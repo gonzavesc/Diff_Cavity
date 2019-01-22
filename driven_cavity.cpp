@@ -14,7 +14,7 @@
 int main()
 {
     std::vector<double> v;    
-    std::vector <std::vector<double>> Rpu, Rnu, Rpv, Rnv, up, vp, Vm, C;
+    std::vector <std::vector<double>> Rpu, Rnu, Rpv, Rnv, up, vp, Vm, C,Vp;
     std::vector<int> pos;
     double Pr, Ray, deltatc, deltatd, deltat, runtime, total_time(0),M(0), MM(0),diff;
     int n(0);
@@ -84,15 +84,15 @@ int main()
         n+=1;
         V[0].set_Vp(mesh, V[0]); V[1].set_Vp(mesh, V[1]);
         V[0].set_Vpc(mesh, V[0], V); V[1].set_Vpc(mesh, V[1], V);
-        copy_matrix(Rpu, Rnu); copy_matrix(Rpv, Rnv); 
+        copy_matrix(Rpu, Rnu); copy_matrix(Rpv, Rnv); copy_matrix(Vp,V[0].get_V());
         deltatc = get_deltatc(V, mesh);
         deltatd = get_deltatd(Pr, mesh);
         deltat = std::min(deltatd,deltatc);
         Rnu = get_Ru(V, mesh, Pr);
         Rnv = get_Rv(V, mesh, T, Pr, Ray);
-        C = substract(Rnu, Rpu);
-        diff = get_max(C);
-        pos = get_maxpos(C);
+        //C = substract(Rnu, Rpu);
+        //diff = get_max(C);
+        //pos = get_maxpos(C);
         std::cout << diff << ", " << pos[0] << ", " << pos[1] << ", " << total_time << ", ";
         up = get_up(V, Rnu, Rpu, deltat);
         vp = get_vp(V, Rnv, Rpv, deltat);
@@ -100,6 +100,9 @@ int main()
         poiss.set_P(P, up, vp, mesh,  deltat);  
         //std::cout << ", " << total_time << std::endl;  
         poiss.set_V(P, mesh, V, up, vp, deltat);
+        C = substract(Vp, V[0].get_V());
+        diff = get_max(C);
+        pos = get_maxpos(C);
         solv.get_T(T, mesh, V, deltat);
         T.set_Tn(mesh, V, T);
         total_time += deltat;
