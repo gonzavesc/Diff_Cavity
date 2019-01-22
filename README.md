@@ -5,3 +5,5 @@ Using Prandtl and Rayleigh and the mesh size different simulations can be obtain
 
 ## Results
 
+For Pr = 5 and Ra = 10:
+![Temperature](Results/Temp10_10_Pr5_Ra10.gif)
