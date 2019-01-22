@@ -1,6 +1,6 @@
 close all; clear all;
-Pr = 100;
-Ray = 10;
+Pr = 5;
+Ra = 100;
 Re = 3200;
 fil = dir('Results/*.out'); 
 timevx = [];
@@ -154,6 +154,7 @@ for i = 1 : length(fil)
         P = cat(3,P,A);
     elseif (name(1:4) == 'Temp')
         timeT = [timeT str2double(name (5:end-4))];
+        names = "Results/" + name;
         A = importdata(names);
         A(1,1)=A(1,2); A(1,end) = A(1,end-1);
         A(end,1) = A(end,2); A(end,end) = A(end,end-1);
@@ -172,8 +173,8 @@ end
 fil = fil - 2;
 col = col - 2;
 [timevx Ivx] = sort(timevx);
-filename = ['Results/velx' num2str(fil) '_' num2str(col) '_Re' num2str(Re) '.gif'];
-filenamef = ['Results/velx' num2str(fil) '_' num2str(col) '_Re' num2str(Re)];
+filename = ['Results/velx' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra) '.gif'];
+filenamef = ['Results/velx' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra)];
 h1 = figure(1);
 
 figure(1)
@@ -195,8 +196,8 @@ for i = 1:length(timevx)
 end
 close all;
 [timevy I] = sort(timevy);
-filename = ['Results/vely' num2str(fil) '_' num2str(col) '_Re' num2str(Re) '.gif'];
-filenamef = ['Results/vely' num2str(fil) '_' num2str(col) '_Re' num2str(Re)];
+filename = ['Results/vely' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra) '.gif'];
+filenamef = ['Results/vely' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra)];
 h2 = figure(2);
 
 figure(2)
@@ -217,8 +218,8 @@ for i = 1:length(timevy)
 end
 
 [timeP I] = sort(timeP);
-filename = ['Results/Pressure' num2str(fil) '_' num2str(col) '_Re' num2str(Re) '.gif'];
-filenamef = ['Results/Pressure' num2str(fil) '_' num2str(col) '_Re' num2str(Re)];
+filename = ['Results/Pressure' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra) '.gif'];
+filenamef = ['Results/Pressure' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra)];
 close all;
 h3 = figure(3);
 figure(3)
@@ -239,8 +240,8 @@ for i = 1:length(timevy)
 end
 
 [timeT I] = sort(timeT);
-filename = ['Results/Temp' num2str(fil) '_' num2str(col) '_Re' num2str(Re) '.gif'];
-filenamef = ['Results/Temp' num2str(fil) '_' num2str(col) '_Re' num2str(Re)];
+filename = ['Results/Temp' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra) '.gif'];
+filenamef = ['Results/Temp' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra)];
 close all;
 h4 = figure(4);
 figure(4)
@@ -292,6 +293,6 @@ end
 
 h = figure(1);
 g = contour(phi, 25);
-saveas(h, ['streamlines' num2str(fil) '_' num2str(col) '_Re' num2str(Re)], 'png');
-saveas(h, ['streamlines' num2str(fil) '_' num2str(col) '_Re' num2str(Re)], 'epsc');
+saveas(h, ['Results/streamlines' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra)], 'png');
+saveas(h, ['Results/streamlines' num2str(fil) '_' num2str(col) '_Pr' num2str(Pr) '_Ra' num2str(Ra)], 'epsc');
 close all
